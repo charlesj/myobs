@@ -1,18 +1,14 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { Map } from 'immutable'
+import Economy from './Economy'
+import { handleEvent } from '../core/economy'
 
 const Shell = () => {
+  const [economy, updateEconomy] = useState(Map())
 
-  return (
-    <div>
+  const update = (event) => updateEconomy(handleEvent(economy, event))
 
-    </div>
-  )
+  return (<Economy economy={economy} update={update} />)
 }
-
-Shell.propTypes = {
-  // Add PropTypes for props passed from parent components here.
-}
-
 
 export default Shell
