@@ -34,6 +34,13 @@ module.exports = {
         }
       },
       {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'css-loader'
+        }
+      },
+      {
         test: /\.(png|jpg|gif)$/,
         use: [
           {

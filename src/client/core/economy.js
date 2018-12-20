@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable'
+import { Map, fromJS, List } from 'immutable'
 import shortid from 'shortid'
 import faker from 'faker'
 
@@ -6,6 +6,7 @@ import faker from 'faker'
 export const paths = {
   people: () => ['people'],
   person: (id) => ['people', id],
+  log: () => ['log'],
 }
 
 const eventTypes = {
@@ -19,9 +20,10 @@ export const events = {
   })
 }
 
-const handleAddPerson = (current, { name }) => {
+const handleAddPerson = (current, event) => {
   const id = shortid.generate()
-  return current.setIn(paths.person(id), fromJS({ name, id }))
+  const log = current.getIn(paths.log(), List())
+  return current.setIn(paths.person(id), fromJS({ name: event.name, id })).setIn(paths.log(), log.push(fromJS(event)))
 }
 
 const handlerMap = {
